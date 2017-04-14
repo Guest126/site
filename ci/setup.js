@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+const { join } = require('path')
+const { execSync } = require('child_process')
+const fs = require('fs')
+const mkdirp = require('mkdirp')
+
+process.chdir(join(__dirname, '..'))
+
+mkdirp.sync('repos')
+
+const repos = []
+const org = 'proffession-of-faith-jp'
+
+let cloned = fs.readdirSync('repos')
+
+repos.forEach(repo => {
+  if (cloned.includes(repo)) {
+    return
+  }
+  let command = `git clone https://github.com/${org}/${repo}.git`
+  console.log('>', command)
+  let out = execSync(command, {
+    cwd: join(__dirname, '../repos')
+  }).toString()
+  console.log(out)
+})
