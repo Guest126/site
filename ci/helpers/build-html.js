@@ -14,18 +14,18 @@ const {
 
 /**
  * MarkdownファイルからHTMLファイルを生成する
- * @param siteTitle サイトのタイトル
+ * @param title サイトのタイトル
  * @param markdowns markdownファイルの { path, name } の配列
  * @param distDir HTMLファイル出力先のディレクトリ
  * @param repos リポジトリ名
  */
-function buildHtml (siteTitle, markdowns, distDir, repos) {
+function buildHtml ({ title, markdowns, distDir, repos }) {
   return co(function * () {
     mkdirp.sync(distDir)
     // Markdown articles to HTML
     let articles = yield markdowns.map(({path, name}) => co(function * () {
       let html = yield mdToHtml(path)
-      let fileName = name + '.html'
+      let fileName = name.split('.')[0] + '.html'
       // title は最初にヒットする h1 要素である
       let title = html.match(/<h1 id=".+">(.+)<\/h1>/)[1]
       return {

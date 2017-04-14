@@ -7,33 +7,31 @@ const buildHtml = require('./helpers/build-html')
 const buildCSS = require('./helpers/build-css')
 
 co(function * () {
-  let repos = process.argv[2]
-  if (!repos) {
+  let repository = process.argv[2]
+  if (!repository) {
     showUsage()
     process.exit(0)
   }
 
-  let message = execSync('git pull', { cwd: join(__dirname, `../repos/${repos}`) })
-  console.log(message.toString())
+  let out = execSync('git pull', { cwd: join(__dirname, `../repos/${repository}`) })
+  console.log(out.toString())
 
   // --- Build HTML ---
 
-  // 各レポジトリの src/{chapter名等}/jp.md に記事がある
-  let names = fs.readdirSync(join(__dirname, `../repos/${repos}/src`))
-  let markdowns = names.map((name) => ({
-    path: join(__dirname, `../repos/${repos}/src/${name}/jp.md`),
-    name
-  })).filter((md) => fs.existsSync(md.path))
+  let config = require(`../repos/${repository}/config.json`)
+  let { title } = config
 
-  let readme = fs.readFileSync(join(__dirname, `../repos/${repos}/README.md`)).toString()
-  // '# title' => 'title'
-  let siteTitle = readme.split('\n')[0].slice(1).trim()
-  let distDir = join(__dirname, `../docs/${repos}`)
-  yield buildHtml(siteTitle, markdowns, distDir, repos)
+  let names = fs.readdirSync(join(__dirname, `../repos/${repository}/src`))
+  let markdowns = names.map((name) => ({
+    path: join(__dirname, `../repos/${repository}/src/${name}`),
+    name
+  })).filter(({ path }) => fs.existsSync(path))
+  let distDir = join(__dirname, `../docs/${repository}`)
+  yield buildHtml({title, markdowns, distDir, repository})
 
   // --- Build CSS ---
 
-  let cssDistDir = join(__dirname, `../docs/${repos}/css`)
+  let cssDistDir = join(__dirname, `../docs/${repository}/css`)
   yield buildCSS(cssDistDir)
 }).catch(e => console.error(e))
 

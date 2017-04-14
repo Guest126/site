@@ -1,22 +1,25 @@
 {
-  "name": "proffession-of-faith-jp",
+  "name": "profession-of-faith-jp",
   "version": "1.0.0",
-  "description": "Simplest static HTML site template",
+  "description": "",
   "dependencies": {
     "autoprefixer": "^6.4.0",
+    "co": "^4.6.0",
     "concat-stream": "^1.5.1",
     "handlebars": "^4.0.5",
     "markdown-to-html": "0.0.11",
     "mkdirp": "^0.5.1",
     "node-sass": "^3.8.0",
     "postcss": "^5.1.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
     "spectre.css": "^0.1.31"
   },
   "devDependencies": {},
   "scripts": {
     "build": "./ci/build-html.js && ./ci/build-css.js"
   },
-  "repository": "proffession-of-faith-jp/site",
+  "repository": "profession-of-faith-jp/site",
   "keywords": [
     "HTML"
   ],
@@ -25,7 +28,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/proffession-of-faith-jp/site/issues"
+    "url": "https://github.com/profession-of-faith-jp/site/issues"
   },
-  "homepage": "https://github.com/proffession-of-faith-jp/site#readme"
+  "homepage": "https://github.com/profession-of-faith-jp/site#readme"
 }
