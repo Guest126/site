@@ -27,7 +27,7 @@ co(function * () {
     name
   })).filter(({ path }) => fs.existsSync(path))
   let distDir = join(__dirname, `../docs/${repository}`)
-  yield buildHtml({title, markdowns, distDir, repository})
+  yield buildHtml(title, markdowns, distDir, repository)
 
   // --- Build CSS ---
 

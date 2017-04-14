@@ -19,7 +19,7 @@ const {
  * @param distDir HTMLファイル出力先のディレクトリ
  * @param repos リポジトリ名
  */
-function buildHtml ({ title, markdowns, distDir, repos }) {
+function buildHtml (siteTitle, markdowns, distDir, repos) {
   return co(function * () {
     mkdirp.sync(distDir)
     // Markdown articles to HTML

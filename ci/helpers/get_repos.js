@@ -11,8 +11,8 @@ function getRepos (org) {
       json: true,
       url: `https://api.github.com/orgs/${org}/repos`,
       headers: {
-          'User-Agent': 'request'
-        }
+        'User-Agent': 'request'
+      }
     })
     let names = repos.map(({ name }) => name).filter(name => name !== 'site')
     return names
