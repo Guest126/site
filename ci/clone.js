@@ -16,7 +16,7 @@ co(function * () {
   // Clone all github repository
   for (let repo of repos) {
     if (cloned.includes(repo)) {
-      return
+      continue
     }
     let command = `git clone https://github.com/${org}/${repo}.git`
     console.log('>', command)
