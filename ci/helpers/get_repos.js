@@ -1,6 +1,11 @@
 const request = require('request-promise')
 const co = require('co')
 
+const ignoreRepos = [
+  'site',
+  'pfj-tools'
+]
+
 /**
  * Get repository names
  */
@@ -14,7 +19,7 @@ function getRepos (org) {
         'User-Agent': 'request'
       }
     })
-    let names = repos.map(({ name }) => name).filter(name => name !== 'site')
+    let names = repos.map(({ name }) => name).filter(name => ignoreRepos.includes(name))
     return names
   })
 }
