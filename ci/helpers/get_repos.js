@@ -19,7 +19,7 @@ function getRepos (org) {
         'User-Agent': 'request'
       }
     })
-    let names = repos.map(({ name }) => name).filter(name => ignoreRepos.includes(name))
+    let names = repos.map(({ name }) => name).filter(name => !ignoreRepos.includes(name))
     return names
   })
 }
