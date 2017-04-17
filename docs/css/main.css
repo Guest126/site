@@ -18,6 +18,8 @@ header h1 {
     color: #666; }
 
 .description {
+  width: 100%;
+  max-width: 700px;
   margin-top: 5em;
 }
 
