@@ -8,24 +8,22 @@ const Handlebars = require('handlebars')
 const mdToHtml = require('./md-to-html.js')
 const loc = require('../../src/info/loc.json')
 const {
-  INDEX_TEMPLATE_PATH,
   ARTICLE_TEMPLATE_PATH
 } = require('./consts')
 
 /**
  * MarkdownファイルからHTMLファイルを生成する
- * @param title サイトのタイトル
  * @param markdowns markdownファイルの { path, name } の配列
  * @param distDir HTMLファイル出力先のディレクトリ
  * @param repos リポジトリ名
  */
-function buildHtml (siteTitle, markdowns, distDir, repos) {
+function buildHtml (markdowns, distDir, repos) {
   return co(function * () {
     mkdirp.sync(distDir)
     // Markdown articles to HTML
     let articles = yield markdowns.map(({path, name}) => co(function * () {
       let html = yield mdToHtml(path)
-      let fileName = name.split('.')[0] + '.html'
+      let fileName = repos + '-' + name.split('.')[0] + '.html'
       // title は最初にヒットする h1 要素である
       let title = html.match(/<h1 id=".+">(.+)<\/h1>/)[1]
       return {
@@ -41,7 +39,6 @@ function buildHtml (siteTitle, markdowns, distDir, repos) {
     let pages = articles.reduce((pageObj, article, i) => {
       let {title, html, fileName} = article
       let data = {
-        siteTitle,
         title,
         loc,
         article: html,
@@ -55,17 +52,6 @@ function buildHtml (siteTitle, markdowns, distDir, repos) {
     articles.forEach(({ fileName }) => {
       fs.writeFileSync(join(distDir, fileName), pages[fileName])
     })
-
-    // Index page
-    let indexHbs = fs.readFileSync(INDEX_TEMPLATE_PATH, { encoding: 'utf-8' })
-    let indexTmpl = Handlebars.compile(indexHbs)
-    let indexPage = indexTmpl({
-      siteTitle,
-      repos,
-      loc,
-      nav: articles
-    })
-    fs.writeFileSync(join(distDir, 'index.html'), indexPage)
   }).catch(err => console.error(err))
 }
 

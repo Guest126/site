@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ title }} | {{ siteTitle }}</title>
+    <title>{{ title }} | {{ loc.SITE_TITLE }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="./css/spectre.min.css" rel="stylesheet" type="text/css">
-    <link href="./css/main.css" rel="stylesheet" type="text/css">
+    <link href="../css/spectre.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header>
       <div class="header">
-        <h1 class="header-title"><a href="index.html">{{ siteTitle }}</a></h1>
+        <h1 class="header-title"><a href="../index.html">{{ loc.SITE_TITLE }}</a></h1>
       </div>
     </header>
 
@@ -25,12 +25,11 @@
         <div>
           <a href="{{ next.fileName }}">{{ next.title }}</a>
         </div>
-      {{else}}
-        <div class="mb-5">{{ loc.TO_TOP_MESSAGE }}</div>
-        <div>
-          <a href="index.html">{{ siteTitle }}</a>
-        </div>
       {{/if}}
+        <div class="mt-10">
+          <div class="mb-5">トップへ</div>
+          <a href="../index.html">{{ loc.SITE_TITLE }}</a>
+        </div>
       </div>
     </div>
 

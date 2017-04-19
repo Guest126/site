@@ -4,7 +4,6 @@ const { join } = require('path')
 const fs = require('fs')
 const co = require('co')
 const buildHtml = require('./helpers/build-html')
-const buildCSS = require('./helpers/build-css')
 
 co(function * () {
   let repository = process.argv[2]
@@ -16,23 +15,19 @@ co(function * () {
   let out = execSync('git pull', { cwd: join(__dirname, `../repos/${repository}`) })
   console.log(out.toString())
 
+  console.log('')
+  console.log('Build...')
   // --- Build HTML ---
-
-  let config = require(`../repos/${repository}/config.json`)
-  let { title } = config
 
   let names = fs.readdirSync(join(__dirname, `../repos/${repository}/src`))
   let markdowns = names.map((name) => ({
     path: join(__dirname, `../repos/${repository}/src/${name}`),
     name
   })).filter(({ path }) => fs.existsSync(path))
-  let distDir = join(__dirname, `../docs/${repository}`)
-  yield buildHtml(title, markdowns, distDir, repository)
+  let distDir = join(__dirname, `../docs/articles`)
+  yield buildHtml(markdowns, distDir, repository)
 
-  // --- Build CSS ---
-
-  let cssDistDir = join(__dirname, `../docs/${repository}/css`)
-  yield buildCSS(cssDistDir)
+  console.log('Done.')
 }).catch(e => console.error(e))
 
 function showUsage () {
