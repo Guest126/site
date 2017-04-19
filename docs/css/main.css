@@ -1,10 +1,11 @@
+@charset "UTF-8";
 html, body {
   margin: 0;
   padding: 0; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif;
-  background-color: white; }
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif; }
 
 header {
   padding: 0.8em;
@@ -17,17 +18,13 @@ header h1 {
     text-decoration: none;
     color: #666; }
 
-.description {
-  width: 100%;
-  max-width: 700px;
-  margin-top: 5em;
-}
-
 .article-list {
   padding: 1em;
   width: 100%;
   box-sizing: border-box;
   max-width: 700px; }
+  .article-list h2 {
+    font-size: 1.3em; }
   .article-list ul {
     list-style: none; }
   .article-list li {
@@ -65,13 +62,23 @@ article {
     padding-bottom: 6px;
     border-bottom: 2px solid rgba(77, 124, 162, 0.2); }
   article h2, article h3, article h4, article h5 {
-    font-size: 1.6em; }
+    font-size: 1.3em; }
+  article h2 {
+    margin-bottom: 2.5rem;
+    color: #4d7ca2; }
+  article p {
+    margin: 0 0 2rem; }
 
 .next-article {
   margin-top: 3em;
   margin-bottom: 2em; }
   .next-article a {
     text-decoration: none; }
+
+.description {
+  max-width: 700px;
+  width: 100%;
+}
 
 footer {
   box-sizing: border-box;
