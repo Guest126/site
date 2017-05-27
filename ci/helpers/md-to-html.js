@@ -1,23 +1,24 @@
-const Markdown = require('markdown-to-html').Markdown
-const concat = require('concat-stream')
+const marked = require('marked')
+const fs = require('fs')
+const co = require('co')
 
 /**
  * markdown ファイルを html 文字列に変換する。
  * @returns Promise<string>
  */
 function mdToHtml (path) {
-  return new Promise((resolve, reject) => {
-    let md = new Markdown()
-    let concatStream = concat(resolve)
-    md.bufmax = 2048
-    md.on('error', (err) => { console.error(err) })
-    md.render(path, {}, err => {
-      if (err) {
-        reject(err)
-      }
-      md.pipe(concatStream)
-    })
+  return co(function * () {
+    let markdown = (yield new Promise((resolve, reject) => {
+      fs.readFile(path, (err, res) => err ? reject(err) : resolve(res))
+    })).toString()
+    let html = marked(markdown)
+    return html
   })
+}
+
+if (!module.parent) {
+  mdToHtml(`${__dirname}/../../tmp/test.md`)
+  .then(d => console.log(d))
 }
 
 module.exports = mdToHtml
