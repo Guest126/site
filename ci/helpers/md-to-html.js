@@ -2,6 +2,11 @@ const marked = require('marked')
 const fs = require('fs')
 const co = require('co')
 
+marked.setOptions({
+  gmf: true,
+  breaks: true
+})
+
 /**
  * markdown ファイルを html 文字列に変換する。
  * @returns Promise<string>
