@@ -1,10 +1,14 @@
 const marked = require('marked')
 const fs = require('fs')
 const co = require('co')
+const addToc = require('./add-toc')
 
+let renderer = new marked.Renderer()
+renderer.heading = (text, level) => `<h${level} id="${text}">${text}</h${level}>\n`
 marked.setOptions({
   gmf: true,
-  breaks: true
+  breaks: true,
+  renderer
 })
 
 /**
@@ -16,7 +20,7 @@ function mdToHtml (path) {
     let markdown = (yield new Promise((resolve, reject) => {
       fs.readFile(path, (err, res) => err ? reject(err) : resolve(res))
     })).toString()
-    let html = marked(markdown)
+    let html = marked(addToc(markdown))
     return html
   })
 }

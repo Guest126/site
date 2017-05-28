@@ -6,13 +6,15 @@
     "autoprefixer": "^6.4.0",
     "co": "^4.6.0",
     "handlebars": "^4.0.5",
+    "markdown-toc": "^1.1.0",
     "marked": "^0.3.6",
     "mkdirp": "^0.5.1",
     "node-sass": "^3.8.0",
     "postcss": "^5.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
-    "spectre.css": "^0.1.31"
+    "spectre.css": "^0.1.31",
+    "urlencode": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {
