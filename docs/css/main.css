@@ -66,6 +66,8 @@ article {
   article h2 {
     margin-bottom: 2.5rem;
     color: #4d7ca2; }
+  article a {
+    text-decoration: none; }
   article p {
     margin: 0 0 2rem; }
 
